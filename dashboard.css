@@ -26,7 +26,10 @@ h1{
 	}
 }
 .burger-menu{
+    width: 80%;
+    margin: auto;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
@@ -70,16 +73,65 @@ h1{
 .dashboard-mainframe{
     display: grid;
     flex-wrap: wrap;
-    grid-template-columns: 30% 1fr 1fr;
+    grid-template-columns: 50% 1fr;
     grid-template-rows: auto;
     align-items: center;;
     width: 100%;
+    font-weight: bold;
+    height: fit-content;
 }
 .dashboard-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin: 10px;
+    padding: 2%;
+    margin: 5%;
     text-align: center;
+    height: fit-content;
+    font-size: large;
+}
+.events{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    grid-gap: 10px;  /* Adjust spacing between cards */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    padding: 2%;
+    margin: 5%;
+    text-align: center;
+    font-size: medium;
+    flex-wrap: wrap;
+    grid-auto-flow: row;
+}
+.events-card{
+    box-shadow: 2px 1px 6px rgba(0, 0, 0, 0.8);
+}
+.events a{
+    text-decoration: none;
+    color: rgb(4, 0, 219);
+}
+.events-card:hover{
+    box-shadow: 4px 2px 6px rgba(0, 0, 0, 1);
+    background-color: rgb(187, 187, 187);
+}
+.activity{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    grid-gap: 10px;  /* Adjust spacing between cards */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    padding: 2%;
+    margin: 5%;
+    text-align: center;
+    font-size: medium;
+}
+.eventDetails{
+    font-style: italic;
+    font-size: normal;
 }
