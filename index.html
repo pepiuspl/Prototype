@@ -8,10 +8,18 @@
 </head>
 <body>
     <header>
-        <h1>ClientConnect CRM</h1>
+        <div class="header">
+            <input id="checkbox2" type="checkbox">
+            <label class="toggle2" for="checkbox2">
+            <div id="bar4" class="bars"></div>
+            <div id="bar5" class="bars"></div>
+            <div id="bar6" class="bars"></div>
+            </label>
+            <h1>ClientConnect CRM</h1>
+        </div>
     </header>
     <main>
-        <div class="burger-menu">
+        <div class="burger-menu" id="burgerMenu">
                 <div class="burger-menu-item"><a href="dashboard.html">Dashboard</a>
                 <span class="badge" id="dashboardBadge"></span></div>
                 <div class="burger-menu-item"><a href="costumers.html">Costumers</a>
@@ -24,22 +32,66 @@
     </main>
     <div class="dashboard-mainframe">
         <div class="dashboard-card">Upcoming events
-            <div class="events"></div>
+            <div class="carousel-container" id="eventsCarousel">
+                <button class="arrow-left">&#10094;</button>
+                <div class="carousel" id="eventsCarouselInner">
+                    <div class="events">
+                    <div class="events-card"></div>
+                    <div class="events-card"></div>
+                    <div class="events-card"></div>
+                    </div>
+                </div>
+                <button class="arrow-right" id="eventsCarouselInner-right">&#10095;</button>
+            </div>
         </div>
         <div class="dashboard-card">Recent activities
-            <div class="activity"></div>
+            <div class="carousel-container" id="activitiesCarousel">
+                <button class="arrow-left">&#10094;</button>
+                <div class="carousel" id="activitiesCarouselInner">
+                    <div class="activity">
+                        <div class="events-card"></div>
+                        <div class="events-card"></div>
+                        <div class="events-card"></div>
+                    </div>
+                </div>
+                <button class="arrow-right">&#10095;</button>
+            </div>
         </div>
         <div class="dashboard-card">Client feedback
-            <div class="feedback"></div>
+            <div class="carousel-container">
+                <button class="arrow left" onclick="prevSlide('eventsCrousel')">&#10094;</button>
+                <div class="carousel">
+                    <div class="feedback"></div>
+                </div>
+                <button class="arrow right" onclick="nextSlide('activityCarousel')">&#10095;</button>
+            </div>
         </div>
         <div class="dashboard-card">Performance metrics
-            <div class="metrics"></div>
+            <div class="carousel-container">
+                <button class="arrow left" onclick="prevSlide('eventsCarousel')">&#10094;</button>
+                <div class="carousel">
+                    <div class="metrics"></div>
+                </div>
+                <button class="arrow right" onclick="nextSlide('activityCarousel')">&#10095;</button>
+            </div>
         </div>
         <div class="dashboard-card">Team collaboration
-            <div class="collaboration"></div>
+            <div class="carousel-container">
+                <button class="arrow left" onclick="prevSlide('eventsCarouselInner')">&#10094;</button>
+                <div class="carousel">
+                    <div class="collaboration"></div>
+                </div>
+                <button class="arrow right" onclick="nextSlide('eventsCarouselInner')">&#10095;</button>
+            </div>
         </div>
         <div class="dashboard-card">Notifications
-            <div class="notifications"></div>
+            <div class="carousel-container">
+                <button class="arrow left" onclick="prevSlide('eventsCarouselInner')">&#10094;</button>
+                <div class="carousel">
+                    <div class="notifications"></div>
+                </div>
+                <button class="arrow right" onclick="nextSlide('eventsCarouselInner')">&#10095;</button>
+            </div>
         </div>
     </div>
     <footer>

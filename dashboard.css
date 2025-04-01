@@ -1,137 +1,404 @@
-body{
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
+@media only screen and (max-width: 599px) {
+    body{
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+    }
+    body.dimmed > *:not(main, header) {
+        opacity: 0.5;          /* Dim the content */
+        pointer-events: none;  /* Prevent interaction with the background */
+        transition: opacity 0.3s ease;
+        filter: blur(5px);
+    }
+    #checkbox2 {
+        display: none;
+    }
+    .header{
+        display: flex;
+        flex-direction: row;
+        gap: 15%;
+    }
+    .header h1{
+        text-align: center;
+        margin-top: 20px;
+        background: linear-gradient(-45deg, #ff3d02, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        height:100%;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;  
+    }
+        @keyframes gradient{
+            0%{
+                background-position: 0% 50%;
+            }
+            50%{
+                background-position: 100% 50%;
+            }
+            100%{
+                background-position:0% 50%;
+            }
+        }
+    /* Default styles for the toggle button (the label) and its bars */
+    .toggle2 {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        margin-top: 20px;
+        margin-left: 4%;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: transform 0.5s;
+        pointer-events: auto;
+        z-index: 1000;
+    }  
+    .bars {
+        width: 100%;
+        height: 2px;
+        background-color: rgb(92, 176, 255);
+        border-radius: 6px;
+        transition: transform 0.5s, width 0.5s;
+    } 
+    /* Default widths for bar4 and bar6 */
+    #bar4,
+    #bar6 {
+        width: 80%;
+    }  
+    /* When checkbox is checked, transform the bars to create an X */
+    /* Note: The selector #checkbox2:checked + .toggle2 targets the label immediately following the checkbox */
+    #checkbox2:checked + .toggle2 .bars {
+        position: absolute;
+    }
+    #checkbox2:checked + .toggle2 #bar5 {
+        transform: scaleX(0);
+    }
+    #checkbox2:checked + .toggle2 #bar4 {
+        width: 100%;
+        transform: rotate(45deg);
+    }
+    #checkbox2:checked + .toggle2 #bar6 {
+        width: 100%;
+        transform: rotate(-45deg);
+    }
+    #checkbox2:checked + .toggle2 {
+        transform: rotate(180deg);
+    }
+    #checkbox2:checked ~ .burger-menu {
+        display: flex; /* Make the menu visible when checked */
+    }
+    /* Burger menu dropdown styling used on mobile */
+    .burger-menu {
+        /* Default settings for the mobile dropdown */
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        position: absolute;
+        top: 70px; /* Positioned below header/toggle */
+        left: 0;
+        width: 100%;
+        border: 1px solid #ccc;
+        z-index: 1000;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        pointer-events: auto;
+    }
+    .burger-menu.open{
+        display:flex;
+    }
+    .burger-menu-item {
+        padding: 10px 20px;
+        border-bottom: 1px solid #ccc;
+    }
+    .burger-menu-item:last-child {
+        border-bottom: none;
+    }
+    .burger-menu-item a{
+        text-decoration: none;
+        color: black;
+    }
+    .burger-menu-item:hover{
+        background: #f0f0f0;
+        font-weight: bold;
+    }
+    .badge {
+        position: relative;
+        place-content: end;
+        top: -22px;
+        left: 90%;
+        margin-bottom: -25px;
+        padding-bottom: -30px;
+        background: #ff3d02;
+        color: #fff;
+        font-size: 15px;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      margin: 10px 0;
+    }
+    /* The carousel uses flex to allow horizontal sliding */
+    .carousel#eventsCarouselInner, .carousel#activitiesCarouselInner {
+      display: flex;
+      transition: transform 0.3s ease-in-out;
+      width: 100%;
+    }
+    .carousel{
+        display: flex;
+        width: 50%;
+        transition: transform 0.3s ease-in-out;
+    }
+    /* Force the events container (which holds the cards) to use flex (not grid) */
+    .dashboard-mainframe{
+        display: grid;
+        flex-wrap: wrap;
+        grid-template-columns: 50% 1fr;
+        grid-template-rows: auto;
+        align-items: center;
+        width: 100%;
+        font-weight: bold;
+    }
+    .dashboard-card{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #bdbaba;
+        border-radius: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 2%;
+        text-align: center;
+        margin: 2%;
+        height: 250px;
+        font-size: medium;
+        overflow: hidden;
+        width: 250px;
+    }
+    .events{
+        display: flex;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.8);
+        margin: 1%;
+        text-align: center;
+        font-size: small;
+        width: 245px;
+        height: 205px;
+    }
+    .events-card{
+        flex: 0 0 100%;
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+        box-sizing: border-box;
+        border-radius: 20px;
+        background-color: #fff;
+    }
+    .events a{
+        text-decoration: none;
+        color: rgb(4, 0, 219);
+    }
+    .activity{
+        display: flex;
+        border-radius: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+        margin: 1%;
+        text-align: center;
+        font-size: small;
+        width: 245px;
+        height: 205px;
+    }
+    .activity a{
+        text-decoration: none;
+        color: rgb(4, 0, 219);
+    }
+    .eventDetails{
+        font-style: italic;
+        font-size: small;
+    }
+    /* Arrow styles remain the same */
+    .arrow-right, .arrow-left {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgb(247, 234, 234, 0.050);
+      border: none;
+      font-size: 2rem;
+      padding: 5px 10px;
+      cursor: pointer;
+      z-index: 10;
+    }
+    .arrow-left {
+      left: -5px;
+    }
+    .arrow-right {
+      right: -5px;
+    }
 }
-h1{
-    text-align: center;
-    margin-top: 20px;
-    background: linear-gradient(-45deg, #ff3d02, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
-    height:100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+@media only screen and (min-width: 600px) {
+    .arrow{
+        display: none;
+    }
+    .arrow.left{
+        display: none;
+    }
+    .arrow.right{
+        display: none;
+    }
+    body{
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+    }
+    h1{
+        text-align: center;
+        margin-top: 20px;
+        background: linear-gradient(-45deg, #ff3d02, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        height:100%;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
   	
-}
-@keyframes gradient{
-	0%{
-		background-position: 0% 50%;
-	}
-	50%{
-		background-position: 100% 50%;
-	}
-	100%{
-		background-position:0% 50%;
-	}
-}
-.burger-menu{
-    width: 80%;
-    margin: auto;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    gap: 20px;
-    padding: 10px;
-    background-color: #fff;
-    border-bottom: 1px solid #ccc;
-}
-.burger-menu a{
-    text-decoration: none;
-    color: black;
-}
-.burger-menu-item{
-    position: relative;
-    padding: 10px 20px;
-    font-size: 16px;
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.burger-menu-item:hover{
-    background: #f0f0f0;
-    font-weight: bold;
-}
-.badge {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background: #ff3d02;
-    color: #fff;
-    font-size: 12px;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-}
-.dashboard-mainframe{
-    display: grid;
-    flex-wrap: wrap;
-    grid-template-columns: 50% 1fr;
-    grid-template-rows: auto;
-    align-items: center;;
-    width: 100%;
-    font-weight: bold;
-    height: fit-content;
-}
-.dashboard-card{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-wrap: wrap;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 2%;
-    margin: 5%;
-    text-align: center;
-    height: fit-content;
-    font-size: large;
-}
-.events{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 columns */
-    grid-gap: 10px;  /* Adjust spacing between cards */
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-    padding: 2%;
-    margin: 5%;
-    text-align: center;
-    font-size: medium;
-    flex-wrap: wrap;
-    grid-auto-flow: row;
-}
-.events-card{
-    box-shadow: 2px 1px 6px rgba(0, 0, 0, 0.8);
-}
-.events a{
-    text-decoration: none;
-    color: rgb(4, 0, 219);
-}
-.events-card:hover{
-    box-shadow: 4px 2px 6px rgba(0, 0, 0, 1);
-    background-color: rgb(187, 187, 187);
-}
-.activity{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 columns */
-    grid-gap: 10px;  /* Adjust spacing between cards */
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-    padding: 2%;
-    margin: 5%;
-    text-align: center;
-    font-size: medium;
-}
-.eventDetails{
-    font-style: italic;
-    font-size: normal;
+    }
+    @keyframes gradient{
+	    0%{
+		    background-position: 0% 50%;
+	    }
+	    50%{
+		    background-position: 100% 50%;
+	    }
+	    100%{
+		    background-position:0% 50%;
+	    }
+    }
+    .toggle2,
+    #checkbox2 {
+      display: none;
+    }
+    .burger-menu{
+        width: 80%;
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        gap: 10px;
+        padding: 20px;
+        background-color: #fff;
+        border-bottom: 1px solid #ccc;
+        border-radius: 5%;
+    }
+    .burger-menu-item {
+        position: relative;
+        padding: 10px 20px;
+        font-size: 16px;
+        background: #fff;
+        border: 2px solid #ccc;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+    .burger-menu a{
+        text-decoration: none;
+        color: black;
+    }
+    .burger-menu-item:hover{
+        background: #f0f0f0;
+        font-weight: bold;
+    }
+    .badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #ff3d02;
+        color: #fff;
+        font-size: 12px;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+    .dashboard-mainframe{
+        display: grid;
+        flex-wrap: wrap;
+        grid-template-columns: 50% 1fr;
+        grid-template-rows: auto;
+        align-items: center;;
+        width: 100%;
+        font-weight: bold;
+        height: fit-content;
+    }
+    .dashboard-card{
+        height:600px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 2%;
+        margin: 2%;
+        place-content: middle;
+        font-size: large;
+    }
+    .events{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 columns */
+        grid-gap: 10px;  /* Adjust spacing between cards */
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+        padding: 1%;
+        margin: 2%;
+        text-align: center;
+        font-size: medium;
+    }
+    .events a{
+        text-decoration: none;
+        color: rgb(4, 0, 219);
+    }
+    .activity{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 columns */
+        grid-gap: 10px;  /* Adjust spacing between cards */
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+        padding: 1%;
+        margin: 2%;
+        text-align: center;
+        font-size: medium;
+    }
+    .activity a{
+        text-decoration: none;
+        color: rgb(4, 0, 219);
+    }
+    .eventDetails{
+        font-style: italic;
+        font-size: normal;
+    }
+    .events-card:hover{
+        box-shadow: 4px 2px 6px rgba(0, 0, 0, 1);
+        background-color: rgb(187, 187, 187);
+    }
+    .events-card{
+        box-shadow: 2px 1px 6px rgba(0, 0, 0, 0.8);
+        height: fit-content;
+    }
+    .carousel{
+        display: none;
+    }
+    .arrow-left, .arrow-right{
+        display: none;
+    }
 }

@@ -1,3 +1,56 @@
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("DOM fully loaded");
+
+  const menu = document.getElementById("burgerMenu");
+  const toggleBtn = document.querySelector(".toggle2");
+  const pageOverlay = document.createElement("div");
+
+  if (!menu || !toggleBtn) {
+      console.error("Menu or toggle button not found!");
+      return;
+  }
+
+  // Create and style overlay for dimming effect
+  pageOverlay.classList.add("page-overlay");
+  document.body.appendChild(pageOverlay);
+
+  toggleBtn.addEventListener("click", function (event) {
+      event.stopPropagation(); // Prevents menu from closing immediately
+      menu.classList.toggle("open");
+      pageOverlay.classList.toggle("active");
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener("click", function (event) {
+      if (!menu.contains(event.target) && !toggleBtn.contains(event.target)) {
+          menu.classList.remove("open");
+          pageOverlay.classList.remove("active");
+      }
+  });
+});
+function toggleBurgerMenu() {
+  const menu = document.getElementById("burgerMenu");
+  const body = document.body;
+
+  if (!menu) {
+      console.error("Menu not found!");
+      return;
+  }
+
+  // Toggle the burger menu visibility and dimming effect
+  if (menu.style.display === "block") {
+      menu.style.display = "none"; // Hide the menu
+      body.classList.remove("dimmed"); // Remove dimming from the body
+  } else {
+      menu.style.display = "block"; // Show the menu
+      body.classList.add("dimmed"); // Apply dimming effect to the body
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelector(".toggle2").addEventListener("click", toggleBurgerMenu);
+});
+
 // Example notification counts. These values could alternatively come from an API.
 const counts = {
   dashboard: 3,
@@ -126,3 +179,84 @@ function loadActivity() {
     eventsContainer.appendChild(eventCard);
   });
 }
+let currentSlide = {}; 
+let autoSlideTimers = {}; 
+
+function setupCarousel(carouselId) {
+    let carousel = document.getElementById(carouselId);
+    if (!carousel) return;
+
+    let slidesWrapper = carousel.querySelector(".events, .activity"); // Select slides container
+    if (!slidesWrapper) return;
+    
+    let slides = Array.from(slidesWrapper.children);
+    if (slides.length === 0) return;
+
+    // Clone first and last slide for seamless transition
+    let firstClone = slides[0].cloneNode(true);
+    let lastClone = slides[slides.length - 1].cloneNode(true);
+
+    firstClone.classList.add("clone");
+    lastClone.classList.add("clone");
+
+    slidesWrapper.appendChild(firstClone);
+    slidesWrapper.insertBefore(lastClone, slides[0]);
+
+    // Reset the current slide index
+    currentSlide[carouselId] = 1; 
+    slidesWrapper.style.transform = `translateX(-${slides[0].offsetWidth}px)`;
+
+    // Attach event listeners to arrows inside each carousel
+    let leftArrow = carousel.querySelector(".arrow-left");
+    let rightArrow = carousel.querySelector(".arrow-right");
+
+    if (leftArrow) leftArrow.addEventListener("click", () => updateSlide(carouselId, -1));
+    if (rightArrow) rightArrow.addEventListener("click", () => updateSlide(carouselId, 1));
+
+    startAutoSlide(carouselId);
+}
+
+function updateSlide(carouselId, direction) {
+    let carousel = document.getElementById(carouselId);
+    if (!carousel) return;
+
+    let slidesWrapper = carousel.querySelector(".events, .activity");
+    let slides = Array.from(slidesWrapper.children);
+    let totalSlides = slides.length;
+    let slideWidth = slides[0].offsetWidth;
+
+    currentSlide[carouselId] += direction;
+    slidesWrapper.style.transition = "transform 0.5s ease-in-out";
+    slidesWrapper.style.transform = `translateX(-${currentSlide[carouselId] * slideWidth}px)`;
+
+    // Restart the timer to 20s if user interacts
+    resetAutoSlide(carouselId, 20000);
+
+    // Handle seamless infinite loop
+    setTimeout(() => {
+        if (slides[currentSlide[carouselId]]?.classList.contains("clone")) {
+            slidesWrapper.style.transition = "none";
+            currentSlide[carouselId] = direction > 0 ? 1 : totalSlides - 2;
+            slidesWrapper.style.transform = `translateX(-${currentSlide[carouselId] * slideWidth}px)`;
+        }
+    }, 500);
+}
+
+function startAutoSlide(carouselId) {
+    autoSlideTimers[carouselId] = setInterval(() => {
+        updateSlide(carouselId, 1);
+    }, 10000); // Change slide every 10s
+}
+
+function resetAutoSlide(carouselId, delay) {
+    clearInterval(autoSlideTimers[carouselId]);
+    autoSlideTimers[carouselId] = setTimeout(() => {
+        startAutoSlide(carouselId);
+    }, delay);
+}
+
+// Initialize both carousels
+document.addEventListener("DOMContentLoaded", () => {
+    setupCarousel("eventsCarousel");
+    setupCarousel("activitiesCarousel");
+});
